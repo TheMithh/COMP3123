@@ -22,7 +22,7 @@ const capitalize1 = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
 const capitalizedColors = colors.map(color => capitalize1(color));
 
-console.log(capitalizedColors); // Output: ['Red', 'Green', 'Blue']
+console.log(capitalizedColors); 
 
 
 // Exercise  4
@@ -30,7 +30,7 @@ const values = [1, 60, 34, 30, 20, 5];
 
 const filterLessThan20 = values.filter(value => value < 20);
 
-console.log(filterLessThan20); // Output: [1, 5]
+console.log(filterLessThan20); 
 
 // Exercise 5
 
