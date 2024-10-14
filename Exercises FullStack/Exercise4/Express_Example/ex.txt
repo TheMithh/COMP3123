@@ -1,0 +1,33 @@
+const express = require('express');
+const app = express();
+
+// Parse JSON bodies for POST requests
+app.use(express.json());
+
+// GET request for /hello
+//http://localhost:3000/hello
+app.get('/hello', (req, res) => {
+    res.send("Hello Express JS");
+});
+
+// GET request for /user (using query string parameters)
+//http://localhost:3000/user?firstname=John&lastname=Doe
+app.get('/user', (req, res) => {
+    const firstname = req.query.firstname || "Pritesh";
+    const lastname = req.query.lastname || "Patel";
+    res.json({ firstname, lastname });
+});
+
+// POST request for /user (using path parameters)
+//http://localhost:3000/user/John/Doe
+app.post('/user/:firstname/:lastname', (req, res) => {
+    const firstname = req.params.firstname;
+    const lastname = req.params.lastname;
+    res.json({ firstname, lastname });
+});
+
+// Start the server
+const port = 3000;
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});

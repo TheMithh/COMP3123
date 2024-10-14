@@ -1,0 +1,143 @@
+    // // Use environment variable or default to port 3000
+    // const port = process.env.PORT || 3000; 
+    // let data='<h3>COMP3123:Hello from my Express app!</h3>'
+
+    // app.get('/', (req, res) => {
+    //   // Code to handle GET requests to the root path ('/')
+    //   //res.send('Hello from my Express app!');
+    //   res.send(data);
+    // });
+    // // app.post('/submit', (req, res) => {
+    // //   // Code to handle POST requests to the '/users' path
+    // //   res.send('Post Request!');
+    // // });
+    // app.put('/update',()=>{
+    //     res.send('Put Request!');
+    // });
+    // // app.delete('/delete',()=>{
+    // //     res.send('Delete Request!');
+    // // });
+
+    // app.listen(port, () => {
+    //   console.log(`Server listening on port ${port}`);
+    // console.log("http://127.0.0.1:3000/"); 
+    // console.log("http://127.0.0.1:3000/submit/"); 
+    // console.log("http://127.0.0.1:3000/update/"); 
+    // console.log("http://127.0.0.1:3000/delete/"); 
+    // });
+
+/////----------------------------------------------------------------------------------------
+
+/*Multiple Route Parameters*/
+const express = require("express");
+const app = express();
+const PORT = 3000; // You can change this port as needed
+
+app.get('/', (req, res) => {
+    // Code to handle GET requests to the root path ('/')
+    //res.send('Hello from my Express app!');
+    res.send('<h1>My App for Adding Multiple Route Parameters</h1>');
+});
+
+app.get("/users/:userId", (req, res) => {
+    const userId = req.params.userId;
+    // Rest of the logic to handle the user with the specified userId
+    res.send(`Result of BASIC ROUTE PARAMETER HANDLING: User ID: ${userId}`);
+});
+console.log("http://127.0.0.1:3000/users/123");
+
+app.get("/products/:productId?", (req, res) => {
+    const productId = req.params.productId || "default";
+    // Logic to handle the product with the 
+    // specified productId or a default value
+    res.send(
+        `Result of OPTIONAL ROUTE PARAMETER HANDLING: Product ID: ${productId}`
+    );
+});
+console.log("http://127.0.0.1:3000/products/12345");
+
+app.get("/posts/:category/:postId", (req, res) => {
+    const category = req.params.category;
+    const postId = req.params.postId;
+    // Logic to handle the post with the specified category and postId
+    res.send(
+        `Result of MULTIPLE ROUTE PARAMETER HANDLING: 
+        Category: ${category}, Post ID: ${postId}`
+    );
+});
+
+console.log("http://127.0.0.1:3000/posts/12345/myPost");
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+
+////-----------------------------------------------------------------------------------------------
+
+/* POST request: /user */
+// Parse JSON bodies for POST requests
+app.use(express.json());
+
+
+// ////-----------------------------------------------------------------------------------------------
+// //const express = require('express');
+// //app = express();
+
+// app.use(express.json())
+// /*The HTTP PUT method in Express.js allows you to update the existing resources 
+// within the application. Using this, you can modify specific data based on unique identifiers. 
+// */
+// let data = "Hello Word!";
+// app.get("/", (req, res) => {
+//     console.log(data);
+//     res.send(data);
+// })
+
+// app.put("/", (req, res) => {
+//     console.log(req.body);
+//     res.send("Data Recieved Successfully!");
+// })
+
+// app.listen(3000, () => { console.log("Server Connected!") });
+
+// console.log("http://127.0.0.1:3000/");
+
+/////----------------------------------------------------------------------------------------
+
+
+/* GET request from html file Using Querystring to send values */
+
+//Use the express.static built-in middleware function
+//To serve static files such as images, CSS files, and JavaScript, files if there are!!
+app.use(express.static('public'));
+
+/*creat index.html file with Form has get method, it has two inputs and the name of first is 
+ "first_name" and "last_name" 
+*/ 
+
+app.get('/index.html', function (req, res) {
+/* The res.sendFile() function transfers the file at the given path 
+(__dirname here is optional becuase the file in the same package) and 
+it sets the Content-Type response HTTP header field based on the filename extension.*/    
+res.sendFile( __dirname + "/" + "index.html" );
+})
+//// http://127.0.0.1:8081/process_get?first_name=Mohammed&last_name=Tawalbeh
+app.get('/process_get', function (req, res) {
+// Prepare output in JSON format 
+response = {
+first_name:req.query.first_name, // first_name is the ID in html file, req.query.first_name=Mohammed  
+last_name:req.query.last_name  // last_name is the ID in json file, req.query.first_name=Mohammed 
+};
+console.log(response); // just print
+res.end(JSON.stringify(response)); 
+});
+
+app.listen(3000, function () {
+// var host = server.address().address
+// console.log(host);
+// var port = server.address().port
+// console.log(port);
+//console.log("Example app listening at http://%s:%s", host, port)
+console.log("http://127.0.0.1:3000/ is running");
+});

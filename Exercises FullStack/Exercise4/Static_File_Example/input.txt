@@ -1,0 +1,3 @@
+My new writing inside input.txt
+New line will be added to input.txt
+Another a New line (2) will be added to input.txt
